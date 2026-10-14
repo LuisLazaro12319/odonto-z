@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, MapPin, Star, UserRound } from 'lucide-react';
-import { CLINIC, TEAM, whatsappUrl } from '../data/clinicData';
-import { WhatsAppIcon } from './BrandIcons';
+import { CLINIC, TEAM } from '../data/clinicData';
 
 const rutaFoto = (foto: string | null) => (foto ? `${import.meta.env.BASE_URL}${foto}` : null);
 
@@ -147,31 +146,16 @@ export const ProfessionalSection: React.FC = () => {
                       </>
                     )}
 
-                    <div className="flex flex-wrap items-center gap-3">
-                      <a
-                        href={whatsappUrl(
-                          principal
-                            ? `Hola ${CLINIC.professional}! Quisiera pedir un turno.`
-                            : `Hola! Quisiera pedir un turno en ${CLINIC.name}.`
-                        )}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2.5 px-7 py-3.5 text-base font-bold text-white bg-[#16c55e] hover:bg-[#12a84f] rounded-xl shadow-lg shadow-emerald-500/25 transition-all hover:-translate-y-0.5"
+                    {principal && TEAM.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => irA(1)}
+                        className="inline-flex items-center gap-1.5 px-5 py-3.5 text-sm font-bold text-purple-800 bg-pink-50 hover:bg-pink-100 border border-pink-200 rounded-xl transition-colors cursor-pointer"
                       >
-                        <WhatsAppIcon className="w-5 h-5" />
-                        <span>{principal ? 'Escribirle por WhatsApp' : 'Escribinos por WhatsApp'}</span>
-                      </a>
-                      {principal && TEAM.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => irA(1)}
-                          className="inline-flex items-center gap-1.5 px-5 py-3.5 text-sm font-bold text-purple-800 bg-pink-50 hover:bg-pink-100 border border-pink-200 rounded-xl transition-colors cursor-pointer"
-                        >
-                          <span>Conocé al equipo</span>
-                          <ChevronRight className="w-4 h-4" />
-                        </button>
-                      )}
-                    </div>
+                        <span>Conocé al equipo</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
