@@ -37,10 +37,10 @@ export const ProfessionalSection: React.FC = () => {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Encabezado del carrusel: el título cambia según la tarjeta que se está viendo */}
+        {/* Encabezado fijo de la sección; los rótulos de cada persona van arriba de su recuadro */}
         <div className="flex items-center justify-between gap-4 mb-10">
           <div className="inline-block px-3.5 py-1.5 rounded-full bg-pink-100 text-purple-800 text-xs font-bold uppercase tracking-wider">
-            {SLIDES[activo]}
+            Nosotros
           </div>
 
           <div className="flex items-center gap-3">
@@ -88,12 +88,18 @@ export const ProfessionalSection: React.FC = () => {
           className="no-scrollbar flex overflow-x-auto snap-x snap-mandatory scroll-smooth"
         >
           {/* Tarjeta 1: la profesional */}
-          <div className="basis-full w-full min-w-0 grow-0 shrink-0 snap-center px-1">
+          <div className="basis-full w-full min-w-0 grow-0 shrink-0 snap-center px-3 pb-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-5">
-                <div className="relative max-w-md mx-auto">
-                  <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-fuchsia-400 via-pink-300 to-purple-600 opacity-80 blur-sm" />
-                  <div className="relative rounded-[1.75rem] overflow-hidden bg-pink-100 shadow-2xl shadow-purple-900/20 aspect-square">
+                <div className="max-w-md mx-auto">
+                  <p className="text-center mb-3">
+                    <span className="inline-block px-3.5 py-1.5 rounded-full bg-fuchsia-50 text-fuchsia-700 border border-pink-200 text-xs font-bold uppercase tracking-wider">
+                      Profesional
+                    </span>
+                  </p>
+                  {/* Marco de color: borde parejo y sin halo difuso, para que nada se recorte */}
+                  <div className="rounded-[2rem] p-1.5 bg-gradient-to-br from-fuchsia-500 via-pink-400 to-purple-600 shadow-xl shadow-purple-900/20">
+                  <div className="relative rounded-[1.6rem] overflow-hidden bg-pink-100 aspect-square">
                     {foto ? (
                       <img
                         src={foto}
@@ -109,7 +115,8 @@ export const ProfessionalSection: React.FC = () => {
                       </div>
                     )}
                   </div>
-                  <div className="relative -mt-8 mx-6 rounded-2xl bg-white shadow-xl shadow-purple-900/10 border border-pink-100 px-5 py-4 text-center">
+                  </div>
+                  <div className="relative -mt-6 mx-6 rounded-2xl bg-white shadow-xl shadow-purple-900/10 border border-pink-100 px-5 py-4 text-center">
                     <h3 className="text-xl font-extrabold text-slate-900">{CLINIC.professional}</h3>
                     <p className="text-sm text-fuchsia-700 font-semibold mt-0.5">Odontóloga · {CLINIC.name}</p>
                   </div>
@@ -172,7 +179,7 @@ export const ProfessionalSection: React.FC = () => {
           </div>
 
           {/* Tarjeta 2: el equipo de trabajo */}
-          <div className="basis-full w-full min-w-0 grow-0 shrink-0 snap-center px-1">
+          <div className="basis-full w-full min-w-0 grow-0 shrink-0 snap-center px-3 pb-8">
             <div className="max-w-3xl mb-10">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
                 Equipo de{' '}
@@ -189,10 +196,13 @@ export const ProfessionalSection: React.FC = () => {
               {TEAM.map((m) => {
                 const fotoMiembro = rutaFoto(m.photo);
                 return (
-                  <div
-                    key={m.role}
-                    className="bg-white rounded-3xl border border-pink-100 shadow-lg shadow-purple-900/5 overflow-hidden"
-                  >
+                  <div key={m.role}>
+                    <p className="text-center mb-3">
+                      <span className="inline-block px-3.5 py-1.5 rounded-full bg-fuchsia-50 text-fuchsia-700 border border-pink-200 text-xs font-bold uppercase tracking-wider">
+                        {m.role}
+                      </span>
+                    </p>
+                  <div className="bg-white rounded-3xl border border-pink-100 shadow-lg shadow-purple-900/5 overflow-hidden">
                     <div className="aspect-[4/3] bg-gradient-to-br from-fuchsia-50 to-pink-100 flex items-center justify-center">
                       {fotoMiembro ? (
                         <img
@@ -211,11 +221,11 @@ export const ProfessionalSection: React.FC = () => {
                       )}
                     </div>
                     <div className="px-5 py-4 text-center">
-                      <p className="text-xs font-bold uppercase tracking-wider text-fuchsia-700">{m.role}</p>
-                      <p className={`mt-1 text-base font-bold ${m.name ? 'text-slate-900' : 'text-slate-400 italic'}`}>
+                      <p className={`text-base font-bold ${m.name ? 'text-slate-900' : 'text-slate-400 italic'}`}>
                         {m.name ?? 'Nombre y apellido'}
                       </p>
                     </div>
+                  </div>
                   </div>
                 );
               })}

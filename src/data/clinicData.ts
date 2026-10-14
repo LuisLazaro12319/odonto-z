@@ -50,7 +50,7 @@ export interface TeamMember {
 
 // Equipo de trabajo del consultorio. Completar nombre y foto de cada integrante.
 export const TEAM: TeamMember[] = [
-  { role: 'Odontóloga', name: CLINIC.professional, photo: CLINIC.photo },
+  { role: 'Profesional', name: CLINIC.professional, photo: CLINIC.photo },
   { role: 'Recepcionista', name: null, photo: null },
   { role: 'Asistente dental', name: null, photo: null },
 ];
