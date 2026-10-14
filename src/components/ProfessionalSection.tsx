@@ -113,7 +113,7 @@ export const ProfessionalSection: React.FC = () => {
                           necesitás y coordinar tu turno.
                         </p>
 
-                        <div className="flex flex-wrap items-center gap-3 text-sm font-semibold mb-8">
+                        <div className="hidden md:flex flex-wrap items-center gap-3 text-sm font-semibold mb-8">
                           <a
                             href={CLINIC.mapsUrl}
                             target="_blank"
@@ -150,7 +150,7 @@ export const ProfessionalSection: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => irA(1)}
-                        className="inline-flex items-center gap-1.5 px-5 py-3.5 text-sm font-bold text-purple-800 bg-pink-50 hover:bg-pink-100 border border-pink-200 rounded-xl transition-colors cursor-pointer"
+                        className="hidden md:inline-flex items-center gap-1.5 px-5 py-3.5 text-sm font-bold text-purple-800 bg-pink-50 hover:bg-pink-100 border border-pink-200 rounded-xl transition-colors cursor-pointer"
                       >
                         <span>Conocé al equipo</span>
                         <ChevronRight className="w-4 h-4" />
