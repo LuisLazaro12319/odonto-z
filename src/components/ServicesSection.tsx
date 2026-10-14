@@ -177,17 +177,21 @@ export const ServicesSection: React.FC = () => {
       className="py-14 md:py-20 lg:py-24 bg-gradient-to-b from-fuchsia-50 via-white to-pink-50 border-b border-pink-100"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mb-8 md:mb-14">
-          <div className="inline-block px-3.5 py-1.5 rounded-full bg-pink-100 text-purple-800 text-xs font-bold uppercase tracking-wider mb-4">
-            Tratamientos
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+        {/* Título con el mismo estilo que "Nosotros": grande, centrado y con degradado */}
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-14">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+            <span className="bg-gradient-to-r from-purple-700 via-fuchsia-600 to-pink-500 bg-clip-text text-transparent">
+              Tratamientos
+            </span>
+          </h2>
+          <div className="mx-auto mt-4 mb-6 h-1.5 w-20 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-400" />
+          <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight mb-3">
             Lo que podemos hacer por tu{' '}
             <span className="bg-gradient-to-r from-fuchsia-600 to-pink-500 bg-clip-text text-transparent">
               salud bucal
             </span>
-          </h2>
-          <p className="text-lg text-slate-600 leading-relaxed">
+          </h3>
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
             Consultanos por WhatsApp cuál es el tratamiento que necesitás y coordinamos tu turno.
           </p>
         </div>
