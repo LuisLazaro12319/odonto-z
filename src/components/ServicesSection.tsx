@@ -1,5 +1,16 @@
 import React from 'react';
-import { Activity, ArrowUpRight, Layers, ShieldCheck, Smile, Sparkles, Stethoscope } from 'lucide-react';
+import {
+  Activity,
+  Anchor,
+  ArrowUpRight,
+  Crown,
+  Gem,
+  Layers,
+  ShieldCheck,
+  Smile,
+  Sparkles,
+  Stethoscope,
+} from 'lucide-react';
 import { CLINIC, SERVICES, whatsappUrl, type DentalService } from '../data/clinicData';
 
 // Clases escritas completas para que Tailwind las detecte.
@@ -39,6 +50,24 @@ const ESTILOS: Record<DentalService['icon'], { icon: React.ReactNode; badge: str
     badge: 'from-pink-400 to-fuchsia-500',
     barra: 'from-pink-400 to-fuchsia-500',
     link: 'text-pink-700 hover:text-fuchsia-900',
+  },
+  crown: {
+    icon: <Crown className="w-6 h-6 text-white" />,
+    badge: 'from-yellow-400 to-amber-500',
+    barra: 'from-yellow-400 to-amber-500',
+    link: 'text-amber-700 hover:text-amber-900',
+  },
+  anchor: {
+    icon: <Anchor className="w-6 h-6 text-white" />,
+    badge: 'from-slate-500 to-slate-700',
+    barra: 'from-slate-500 to-slate-700',
+    link: 'text-slate-700 hover:text-slate-900',
+  },
+  gem: {
+    icon: <Gem className="w-6 h-6 text-white" />,
+    badge: 'from-sky-400 to-blue-500',
+    barra: 'from-sky-400 to-blue-500',
+    link: 'text-sky-700 hover:text-sky-900',
   },
 };
 

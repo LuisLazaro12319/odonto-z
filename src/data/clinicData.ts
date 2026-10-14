@@ -23,9 +23,12 @@ export const CLINIC = {
   googleRating: '4.3',
   googleReviews: 7,
   // Foto de la profesional (ruta dentro de /public). Sin foto, se muestran sus iniciales.
-  photo: null as string | null,
+  photo: 'images/ayelen.jpg' as string | null,
   // Textos que se repiten en el inicio, el pie y la descripción para Google.
-  servicesSummary: 'odontología general, tratamientos de conducto, prótesis, operatorias y extracciones',
+  servicesSummary:
+    'limpieza dental, operatorias, tratamientos de conducto, coronas, prótesis, implantes y extracciones',
+  // Medios de pago publicados en sus historias de Instagram.
+  paymentMethods: ['Transferencia bancaria / Mercado Pago', 'Tarjeta de débito o crédito', 'Efectivo'],
   hoursSummary: 'Lunes a viernes hasta las 17 hs',
   headline: 'Sonreí con',
   headlineHighlight: 'confianza y seguridad',
@@ -35,45 +38,77 @@ export interface DentalService {
   id: string;
   name: string;
   description: string;
-  icon: 'stethoscope' | 'sparkles' | 'layers' | 'shield' | 'activity' | 'smile';
+  icon: 'stethoscope' | 'sparkles' | 'layers' | 'shield' | 'activity' | 'smile' | 'crown' | 'anchor' | 'gem';
 }
+
+export interface TeamMember {
+  role: string;
+  /** Nombre y foto: quedan en null hasta que el consultorio los envíe. */
+  name: string | null;
+  photo: string | null;
+}
+
+// Equipo de trabajo del consultorio. Completar nombre y foto de cada integrante.
+export const TEAM: TeamMember[] = [
+  { role: 'Odontóloga', name: CLINIC.professional, photo: CLINIC.photo },
+  { role: 'Recepcionista', name: null, photo: null },
+  { role: 'Asistente dental', name: null, photo: null },
+];
 
 export const SERVICES: DentalService[] = [
   {
-    id: 'general',
-    name: 'Odontología general',
-    description: 'Revisión, limpieza y terapia básica para cuidar tu salud bucal de forma completa.',
+    id: 'limpieza',
+    name: 'Limpieza dental',
+    description: 'Remoción de sarro y placa para mantener tus encías y tus dientes sanos.',
+    icon: 'sparkles',
+  },
+  {
+    id: 'operatoria',
+    name: 'Operatoria dental (caries)',
+    description: 'Arreglo de caries y restauraciones para devolverle forma y función a tus dientes.',
     icon: 'stethoscope',
   },
   {
     id: 'conducto',
-    name: 'Tratamientos de conducto',
+    name: 'Tratamiento de conducto',
     description: 'Endodoncia para conservar tu diente cuando el nervio está afectado.',
     icon: 'activity',
   },
   {
-    id: 'protesis-fija',
-    name: 'Prótesis fija',
-    description: 'Reposición de piezas dentales con prótesis fijas para recuperar la masticación y la sonrisa.',
+    id: 'exodoncia',
+    name: 'Exodoncia',
+    description: 'Extracción de piezas dentales cuando es necesaria, con indicaciones claras para el después.',
+    icon: 'shield',
+  },
+  {
+    id: 'perno-poste',
+    name: 'Perno y poste',
+    description: 'Refuerzo interno para reconstruir dientes tratados que perdieron mucha estructura.',
+    icon: 'anchor',
+  },
+  {
+    id: 'corona',
+    name: 'Corona',
+    description: 'Cobertura que restaura la forma, el tamaño y la resistencia de una pieza dental.',
+    icon: 'crown',
+  },
+  {
+    id: 'protesis-completa',
+    name: 'Prótesis completas',
+    description: 'Reposición de todos los dientes de una arcada para recuperar la masticación y la sonrisa.',
     icon: 'layers',
   },
   {
-    id: 'protesis-removible',
-    name: 'Prótesis removible',
-    description: 'Prótesis removibles para reemplazar una o varias piezas, cómodas y fáciles de higienizar.',
+    id: 'protesis-parcial',
+    name: 'Prótesis parciales removibles',
+    description: 'Reemplazan una o varias piezas, son cómodas y fáciles de higienizar.',
     icon: 'smile',
   },
   {
-    id: 'operatorias',
-    name: 'Operatorias',
-    description: 'Arreglo de caries y restauraciones para devolverle forma y función a tus dientes.',
-    icon: 'sparkles',
-  },
-  {
-    id: 'extracciones',
-    name: 'Extracciones',
-    description: 'Extracción de piezas dentales cuando es necesaria, con indicaciones claras para el después.',
-    icon: 'shield',
+    id: 'implantes',
+    name: 'Implantes',
+    description: 'Reposición de piezas dentales con implantes para recuperar la función y la estética.',
+    icon: 'gem',
   },
 ];
 

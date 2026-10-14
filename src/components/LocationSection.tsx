@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Clock, Copy, ExternalLink, MapPin, Navigation, Phone } from 'lucide-react';
+import { Check, Clock, Copy, ExternalLink, MapPin, Navigation, Phone, Wallet } from 'lucide-react';
 import { CLINIC, SCHEDULE, getClinicStatus } from '../data/clinicData';
 
 export const LocationSection: React.FC = () => {
@@ -75,6 +75,23 @@ export const LocationSection: React.FC = () => {
               })}
             </div>
             {status.detail && <p className="text-xs text-slate-500">{status.detail}</p>}
+
+            <div className="pt-5 border-t border-pink-100">
+              <div className="flex items-center gap-2 text-sm font-bold text-slate-900 mb-3">
+                <Wallet className="w-4 h-4 text-fuchsia-600" />
+                <span>Medios de pago</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {CLINIC.paymentMethods.map((m) => (
+                  <span
+                    key={m}
+                    className="px-3 py-1.5 rounded-full bg-fuchsia-50 text-purple-900 border border-pink-200 text-xs font-semibold"
+                  >
+                    {m}
+                  </span>
+                ))}
+              </div>
+            </div>
 
             <div className="flex flex-wrap gap-2.5 pt-1">
               <a

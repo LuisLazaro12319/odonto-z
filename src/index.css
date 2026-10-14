@@ -6,6 +6,14 @@
     scroll-behavior: smooth;
   }
 
+  /* Carrusel: sin barra de desplazamiento visible. */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   /* El encabezado queda fijo arriba: así los títulos no se tapan al ir a una sección. */
   section[id] {
     scroll-margin-top: 5rem;
