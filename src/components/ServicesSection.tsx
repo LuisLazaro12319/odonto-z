@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Activity,
   Anchor,
@@ -71,14 +71,113 @@ const ESTILOS: Record<DentalService['icon'], { icon: React.ReactNode; badge: str
   },
 };
 
+/** Velocidad de la cinta en celular (píxeles por segundo). */
+const VELOCIDAD_CINTA = 38;
+
+/**
+ * Cinta de tratamientos para celular: una sola fila que avanza sola y se puede arrastrar con el dedo.
+ * Se pausa al tocarla y retoma sola. La lista va duplicada para que el recorrido no tenga corte.
+ */
+const CintaServicios: React.FC = () => {
+  const pista = useRef<HTMLDivElement>(null);
+  const pausada = useRef(false);
+  const temporizador = useRef<number | undefined>(undefined);
+
+  useEffect(() => {
+    const el = pista.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let cuadro = 0;
+    let ultimo = performance.now();
+    let pos = el.scrollLeft;
+
+    const avanzar = (ahora: number) => {
+      const dt = Math.min(ahora - ultimo, 100);
+      ultimo = ahora;
+      // Si la persona la movió con el dedo, seguimos desde donde la dejó.
+      if (Math.abs(el.scrollLeft - pos) > 1.5) pos = el.scrollLeft;
+      if (!pausada.current && el.scrollWidth > el.clientWidth) {
+        pos += (VELOCIDAD_CINTA * dt) / 1000;
+        const mitad = el.scrollWidth / 2;
+        if (pos >= mitad) pos -= mitad;
+        el.scrollLeft = pos;
+      }
+      cuadro = requestAnimationFrame(avanzar);
+    };
+    cuadro = requestAnimationFrame(avanzar);
+    return () => {
+      cancelAnimationFrame(cuadro);
+      window.clearTimeout(temporizador.current);
+    };
+  }, []);
+
+  const pausar = () => {
+    window.clearTimeout(temporizador.current);
+    pausada.current = true;
+  };
+  const retomar = (espera = 1500) => {
+    window.clearTimeout(temporizador.current);
+    temporizador.current = window.setTimeout(() => {
+      pausada.current = false;
+    }, espera);
+  };
+
+  return (
+    <div
+      ref={pista}
+      onTouchStart={pausar}
+      onTouchEnd={() => retomar()}
+      onTouchCancel={() => retomar()}
+      onMouseEnter={pausar}
+      onMouseLeave={() => retomar(300)}
+      className="no-scrollbar flex gap-3 overflow-x-auto px-4 py-2"
+      aria-label="Tratamientos"
+    >
+      {[...SERVICES, ...SERVICES].map((service, i) => {
+        const e = ESTILOS[service.icon];
+        const copia = i >= SERVICES.length;
+        return (
+          <div
+            key={`${service.id}-${i}`}
+            aria-hidden={copia || undefined}
+            className="relative shrink-0 w-[46vw] min-w-[158px] max-w-[210px] bg-white rounded-2xl border border-slate-100 p-3.5 flex flex-col justify-between shadow-md shadow-purple-900/5 overflow-hidden"
+          >
+            <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${e.barra}`} />
+            <div>
+              <div
+                className={`w-10 h-10 rounded-xl bg-gradient-to-br ${e.badge} flex items-center justify-center shadow mb-2.5 [&>svg]:w-5 [&>svg]:h-5`}
+              >
+                {e.icon}
+              </div>
+              <h3 className="text-sm font-bold text-slate-900 leading-snug mb-1 line-clamp-2">{service.name}</h3>
+              <p className="text-xs text-slate-600 leading-snug line-clamp-3">{service.description}</p>
+            </div>
+            <a
+              href={whatsappUrl(`Hola! Quisiera consultar por ${service.name} en ${CLINIC.name}.`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              tabIndex={copia ? -1 : undefined}
+              className={`mt-3 pt-2.5 border-t border-slate-100 inline-flex items-center gap-1 text-xs font-bold ${e.link}`}
+            >
+              <span>Consultar</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 export const ServicesSection: React.FC = () => {
   return (
     <section
       id="tratamientos"
-      className="py-20 lg:py-24 bg-gradient-to-b from-fuchsia-50 via-white to-pink-50 border-b border-pink-100"
+      className="py-14 md:py-20 lg:py-24 bg-gradient-to-b from-fuchsia-50 via-white to-pink-50 border-b border-pink-100"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mb-14">
+        <div className="max-w-3xl mb-8 md:mb-14">
           <div className="inline-block px-3.5 py-1.5 rounded-full bg-pink-100 text-purple-800 text-xs font-bold uppercase tracking-wider mb-4">
             Tratamientos
           </div>
@@ -93,7 +192,13 @@ export const ServicesSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Celular: cinta que avanza sola y se arrastra con el dedo */}
+        <div className="md:hidden -mx-4">
+          <CintaServicios />
+        </div>
+
+        {/* Pantallas grandes: grilla de tarjetas */}
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6">
           {SERVICES.map((service) => {
             const e = ESTILOS[service.icon];
             return (
