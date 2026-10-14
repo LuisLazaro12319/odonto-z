@@ -46,6 +46,8 @@ export interface TeamMember {
   /** Nombre y foto: quedan en null hasta que el consultorio los envíe. */
   name: string | null;
   photo: string | null;
+  /** Texto breve opcional de la persona; si falta se usa uno neutro. */
+  bio?: string;
 }
 
 // Equipo de trabajo del consultorio. Completar nombre y foto de cada integrante.
